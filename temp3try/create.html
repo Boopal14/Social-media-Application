@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Post</title>
+    <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap'>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        :root {
+            --primary-color: #c6c3c3;
+            --second-color: #ffffff;
+            --black-color: #000000;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url("D:\\BOB\\temp3try\\temp3 images\\sharebg1.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 30px;
+        }
+
+#post-form {
+    width: 400px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 20px;
+    color: var(--second-color);
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+}
+
+#post-form h2 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 30px; /* Add margin bottom for spacing */
+}
+
+#post-form .inputBx {
+    position: relative;
+    width: 100%;
+    color: white;
+}
+
+#post-form .inputBx textarea {
+    width: 100%;
+    height: 100px;
+    padding: 12px 20px;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 40px;
+    font-size: 1.2em;
+    color: #fff;
+    box-shadow: none;
+    resize: none;
+    margin-bottom: 30px;
+    outline: none;
+}
+
+#post-form .inputBx input::placeholder {
+    color: #fff;
+    opacity: 0.75;
+}
+#post-form .inputBx input[type="submit"] {
+    width: 100px;
+    padding: 10px 15px;
+    background: linear-gradient(45deg, #cc33ff 60%, #ff99ff 80%);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: #fff;
+    border-radius: 30px;
+    transition: background 0.3s;
+    position: absolute; /* Position the button absolutely */
+    bottom: -80px; /* Adjust the distance from the bottom */
+    left: calc(50% - 50px); /* Center the button horizontally */
+}
+
+#post-form .inputBx input[type="submit"]:hover {
+    background: linear-gradient(45deg, #ff99ff 60%, #cc33ff 80%);
+}
+
+#post-form .links {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+#post-form .links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Integrated code -->
+    <div id="post-form">
+        <h2>Share Your Thoughts!</h2>
+        <div class="inputBx">
+            <textarea id="post-content" placeholder="Enter your thoughts here..."></textarea>
+        </div>
+        <div class="inputBx">
+            <input type="submit" value="Share">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var postButton = document.querySelector('#post-form input[type="submit"]');
+            var postContent = document.getElementById('post-content');
+
+            postButton.addEventListener('click', function () {
+                var content = postContent.value.trim();
+                if (content !== '') {
+                    // You can perform any action here, like sending the content to your server for processing/storage
+                    alert('Your thoughts have been shared:\n\n' + content);
+                    // Clear the textarea after sharing
+                    postContent.value = '';
+                } else {
+                    alert('Please enter your thoughts to share.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

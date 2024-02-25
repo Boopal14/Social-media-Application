@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account</title>
+  <link rel='stylesheet' href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css'>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Poppins&amp;display=swap'>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    :root {
+      --primary-color: #c6c3c3;
+      --second-color: #ffffff;
+      --black-color: #000000;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #111;
+  overflow: hidden;
+    }
+
+    .square {
+      position: relative;
+      width: 600px; /* Increased width for the outer circle */
+      height: 600px; /* Increased height for the outer circle */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .square i {
+      position: absolute;
+      inset: 0;
+      border: 2px solid #fff;
+      transition: 0.5s;
+    }
+
+    .square i:nth-child(1) {
+      border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+      animation: animate 6s linear infinite;
+    }
+
+    .square i:nth-child(2) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate 4s linear infinite;
+    }
+
+    .square i:nth-child(3) {
+      border-radius: 41% 44% 56% 59%/38% 62% 63% 37%;
+      animation: animate2 10s linear infinite;
+    }
+
+    .square:hover i {
+      border: 6px solid var(--clr);
+      filter: drop-shadow(0 0 20px var(--clr));
+    }
+
+    @keyframes animate {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes animate2 {
+      0% {
+        transform: rotate(360deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    .login {
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .login h2 {
+      font-size: 2em;
+      color: #fff;
+    }
+
+    .login form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .login .inputBx input {
+      position: relative;
+      width: 100%;
+      padding: 12px 20px;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 40px;
+      font-size: 1.2em;
+      color: #fff;
+      box-shadow: none;
+      outline: none;
+    }
+
+    .login .inputBx input[type="submit"] {
+      width: 100%;
+      background: #0078ff;
+      background: linear-gradient(45deg, #cc33ff 60%, #ff99ff 80%);
+      border: none;
+      cursor: pointer;
+    }
+
+    .login .inputBx input::placeholder {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .login .links {
+      position: relative;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .login .links a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    /* Added styles for error messages */
+    .error-text {
+      font-size: 14px;
+      margin-top: 5px;
+      display: block;
+      color: #f91919;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Integrated code -->
+  <div class="square">
+    <i style="--clr:#ffccff;"></i>
+    <i style="--clr: #ff9900"></i>
+    <i style="--clr:#cc66cc;"></i>
+    <div class="login">
+      <h2>Create Account</h2>
+      <form id="createAccountForm">
+        <div class="inputBx">
+          <input type="text" id="fullname" placeholder="Full Name">
+        </div>
+        <div class="inputBx">
+          <input type="text" id="email" placeholder="Email Address">
+        </div>
+        <div class="inputBx">
+          <input type="password" id="password" placeholder="Password">
+        </div>
+        <div class="inputBx">
+          <input type="password" id="confirm-password" placeholder="Confirm Password">
+        </div>
+        <div class="inputBx">
+          <input type="submit" value="Create Account">
+        </div>
+      </form>
+      <div class="links">
+        <a href="D:\BOB\temp3try\loginfortemp3.html">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const createAccountForm = document.getElementById("createAccountForm"),
+      passwordInput = document.getElementById("password"),
+      confirmPasswordInput = document.getElementById("confirm-password");
+
+    const showError = (field, errorText) => {
+      field.classList.add("error");
+      const errorElement = document.createElement("small");
+      errorElement.classList.add("error-text");
+      errorElement.innerText = errorText;
+      field.closest(".inputBx").appendChild(errorElement);
+    };
+
+    const validatePassword = (password, confirmPassword) => {
+      if (password === "") {
+        showError(passwordInput, "Enter your password");
+      } else if (password.length < 8) {
+        showError(passwordInput, "Password must be at least 8 characters");
+      } else if (confirmPassword !== password) {
+        showError(confirmPasswordInput, "Passwords do not match");
+      }
+    };
+
+    const handleFormData = (e) => {
+      e.preventDefault();
+      const [fullnameInput, emailInput] = [
+        document.getElementById("fullname"),
+        document.getElementById("email")
+      ];
+
+      const [fullname, email, password, confirmPassword] = [
+        fullnameInput,
+        emailInput,
+        passwordInput,
+        confirmPasswordInput
+      ].map((input) => input.value.trim());
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      document
+        .querySelectorAll(".inputBx .error")
+        .forEach((field) => field.classList.remove("error"));
+      document
+        .querySelectorAll(".error-text")
+        .forEach((errorText) => errorText.remove());
+
+      if (fullname === "") showError(fullnameInput, "Enter your full name");
+      if (!emailPattern.test(email))
+        showError(emailInput, "Enter a valid email address");
+      validatePassword(password, confirmPassword);
+    };
+
+    createAccountForm.addEventListener("submit", handleFormData);
+  </script>
+</body>
+
+</html>

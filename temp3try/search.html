@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search page </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "Poppins";
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+	    background: #000;
+            min-height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            width: 256px;
+            height: 256px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+.container span {
+    position: absolute;
+    left: 0;
+    width: 32px;
+    height: 6px;
+    background-color: #cc33ff; /* Change background color */
+    border-radius: 8px;
+    transform-origin: 128px;
+    transform: scale(2.2) rotate(calc(var(--i) * (360deg / 50)));
+    animation: animateBlink 3s linear infinite;
+    animation-delay: calc(var(--i) * (3s / 50));
+}
+
+@keyframes animateBlink {
+    0% {
+        background: #cc33ff;
+    }
+
+    25% {
+        background: #ff99ff;
+    }
+}
+
+        .login-box {
+            position: absolute;
+            width: 400px;
+        }
+
+        .login-box form {
+            width: 100%;
+            padding: 0 50px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: white;
+            text-align: center;
+        }
+
+        .input-box {
+            position: relative;
+            margin: 25px 0;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 50px;
+            background: transparent;
+            border: 2px solid #2c4766;
+            outline: none;
+            border-radius: 40px;
+            font-size: 1em;
+            color: #fff;
+            padding: 0 20px;
+            transition: 0.5s;
+        }
+
+        .input-box input:focus,
+        .input-box input:valid {
+            border-color: #0ef;
+        }
+
+        .input-box label {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            font-size: 1em;
+            color: #fff;
+            pointer-events: none;
+            transition: 0.5s ease;
+        }
+
+        .input-box input:focus~label,
+        .input-box input:valid~label {
+            top: 1px;
+            font-size: 0.8em;
+            background-color: #1f293a;
+            padding: 0 6px;
+            color: #0ef;
+        }
+
+        .forgot-password {
+            margin: -15px 0 10px;
+            text-align: center;
+        }
+
+        .forgot-password a {
+            font-size: 0.85em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            height: 45px;
+            border-radius: 45px;
+            background: #0ef;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 1em;
+            color: #1f293a;
+            font-weight: 600;
+        }
+
+        .signup-link {
+            margin: 20px 0 10px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            font-size: 1em;
+            color: #0ef;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .search-container {
+            text-align: center;
+            position: relative; /* To position the message relative to this container */
+        }
+
+        .search-bar {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            width: 300px;
+            margin-right: 20px;
+            font-size: 16px;
+            position: relative; /* For the animation effect */
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            cursor: pointer;
+        }
+
+        .found-message {
+            position: absolute;
+            top: calc(100% + 20px); /* Position it below the search bar */
+            left: 50%;
+            transform: translateX(-50%);
+            display: none; /* Initially hidden */
+            font-size: 18px;
+            color: white;
+        }
+
+        /* Animation effect */
+        .search-bar::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 32px;
+            height: 6px;
+            background: #ff99ff;
+            border-radius: 8px;
+            transform-origin: 16px;
+            animation: animateBlink 3s linear infinite;
+        }
+
+        @keyframes animateBlink {
+            0% {
+                background: #cc33ff;
+            }
+
+            25% {
+                background: #ff99ff ;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login-box">
+        <h2>Search</h2>
+        <form action="#">
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-bar" placeholder="Search for users...">
+                <!-- SVG Search Icon -->
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <!-- End of SVG Search Icon -->
+                <div id="foundMessage" class="found-message"></div>
+            </div>
+        </form>
+    </div>
+
+    <span style="--i:0;"></span>
+    <span style="--i:1;"></span>
+    <span style="--i:2;"></span>
+    <span style="--i:3;"></span>
+    <span style="--i:4;"></span>
+    <span style="--i:5;"></span>
+    <span style="--i:6;"></span>
+    <span style="--i:7;"></span>
+    <span style="--i:8;"></span>
+    <span style="--i:9;"></span>
+    <span style="--i:10;"></span>
+    <span style="--i:11;"></span>
+    <span style="--i:12;"></span>
+    <span style="--i:13;"></span>
+    <span style="--i:14;"></span>
+    <span style="--i:15;"></span>
+    <span style="--i:16;"></span>
+    <span style="--i:17;"></span>
+    <span style="--i:18;"></span>
+    <span style="--i:19;"></span>
+    <span style="--i:20;"></span>
+    <span style="--i:21;"></span>
+    <span style="--i:22;"></span>
+    <span style="--i:23;"></span>
+    <span style="--i:24;"></span>
+    <span style="--i:25;"></span>
+    <span style="--i:26;"></span>
+    <span style="--i:27;"></span>
+    <span style="--i:28;"></span>
+    <span style="--i:29;"></span>
+    <span style="--i:30;"></span>
+    <span style="--i:31;"></span>
+    <span style="--i:32;"></span>
+    <span style="--i:33;"></span>
+    <span style="--i:34;"></span>
+    <span style="--i:35;"></span>
+    <span style="--i:36;"></span>
+    <span style="--i:37;"></span>
+    <span style="--i:38;"></span>
+    <span style="--i:39;"></span>
+    <span style="--i:40;"></span>
+    <span style="--i:41;"></span>
+    <span style="--i:42;"></span>
+    <span style="--i:43;"></span>
+    <span style="--i:44;"></span>
+    <span style="--i:45;"></span>
+    <span style="--i:46;"></span>
+    <span style="--i:47;"></span>
+    <span style="--i:48;"></span>
+    <span style="--i:49;"></span>
+</div>
+
+<script>
+    const users = ['Boopal_dt_krish', 'Queen_bee_ruby', 'Mounikha_k_v', 'Ana_goldina', 'Niru_rani_ss'];
+
+    function searchUsers() {
+        console.log('Searching users...'); // Adding a log to check if the function is being called
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        const results = users.filter(user => user.toLowerCase().includes(searchTerm));
+
+        const foundMessage = document.getElementById('foundMessage');
+
+        if (results.length > 0) {
+            foundMessage.textContent = `User found: ${results[0]}`; // Assuming only the first matching user is displayed
+            foundMessage.style.display = 'block'; // Show the message
+        } else {
+            foundMessage.textContent = 'No users found.';
+            foundMessage.style.display = 'block'; // Show the message
+        }
+    }
+
+    // Adding event listener to the search icon
+    const searchIcon = document.querySelector('.search-icon');
+    searchIcon.addEventListener('click', searchUsers);
+</script>
+</body>
+</html>
